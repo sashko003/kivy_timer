@@ -14,14 +14,23 @@ class TimerController:
 
     def start_timer(self, *args):
         interval = int(self._ui.ti_interval.text)
-        timer_thread = Thread(target=self._timer_model.start_timer, args=(interval,))
-        timer_thread.start()
+        if self.check_interval(interval):
+            timer_thread = Thread(target=self._timer_model.start_timer, args=(interval,))
+            timer_thread.start()
+        else:
+            self._ui.lbl_timer.text = "Invalid interval"
 
     def update_remaining_time(self, *args):
         self._ui.lbl_timer.text = f"{self._timer_model.remaining_time:.2f}"
 
     def timeout_reached(self, *args):
         self._ui.lbl_timer.text = "Timeout"
+
+    def check_interval(self, interval):
+        if not (self._timer_model.min_limit <= interval <= self._timer_model.max_limit):
+            return False
+        else:
+            return True
 
     @property
     def ui(self):

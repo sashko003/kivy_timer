@@ -34,3 +34,11 @@ class TimerModel:
     @event_on_timeout.setter
     def event_on_timeout(self, handler):
         self._event_on_timeout = Clock.schedule_once(handler)
+
+    @property
+    def min_limit(self):
+        return self._timer.MIN_LIMIT
+
+    @property
+    def max_limit(self):
+        return self._timer.MAX_LIMIT

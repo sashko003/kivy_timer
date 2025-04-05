@@ -29,6 +29,9 @@ class AbstractTimer(ABC):
 
 
 class Timer(AbstractTimer):
+    MIN_LIMIT = 0
+    MAX_LIMIT = 300
+
     def __init__(self, interval=0):
         super().__init__(interval)
         self._interval = 0
