@@ -4,12 +4,19 @@ import os
 
 
 class LoggerCreator:
+    """
+    Class to create setup logger instance using logging package
+    """
     def __init__(self, log_file=None):
         self.log_file = log_file
         self._logger = logging.getLogger('common_logger')
         self._logger.setLevel(logging.DEBUG)
 
     def config_file_logging(self):
+        """
+        Configure writing log to the file
+        :return:
+        """
         if self.log_file:
             if not os.path.exists(self.log_file):
                 os.makedirs(os.path.dirname(self.log_file))
@@ -20,6 +27,10 @@ class LoggerCreator:
             self._logger.addHandler(file_handler)
 
     def config_console_logging(self):
+        """
+        Configure writing log to the console
+        :return:
+        """
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
