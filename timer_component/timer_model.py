@@ -26,6 +26,7 @@ class TimerModel:
     @event_refresh_timer.setter
     def event_refresh_timer(self, handler):
         self._event_refresh_timer = Clock.schedule_interval(handler, 0.1)
+        self._event_refresh_timer.cancel()
 
     @property
     def event_on_timeout(self):
@@ -34,6 +35,7 @@ class TimerModel:
     @event_on_timeout.setter
     def event_on_timeout(self, handler):
         self._event_on_timeout = Clock.schedule_once(handler)
+        self._event_on_timeout.cancel()
 
     @property
     def min_limit(self):

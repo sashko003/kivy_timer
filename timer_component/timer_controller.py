@@ -21,9 +21,11 @@ class TimerController:
             self._ui.lbl_timer.text = "Invalid interval"
 
     def update_remaining_time(self, *args):
+        print("update_remaining_time")
         self._ui.lbl_timer.text = f"{self._timer_model.remaining_time:.2f}"
 
     def timeout_reached(self, *args):
+        print("update_remaining_time")
         self._ui.lbl_timer.text = "Timeout"
 
     def check_interval(self, interval):
