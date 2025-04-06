@@ -1,12 +1,24 @@
 from kivy.clock import Clock
 
 from .timer import Timer
+from abc import ABC, abstractmethod
 
 import logging
 LOG = logging.getLogger('common_logger')
 
 
-class TimerModel:
+class AbstractTimerModel(ABC):
+    @abstractmethod
+    def start_timer(self, interval):
+        pass
+
+    @property
+    @abstractmethod
+    def remaining_time(self):
+        pass
+
+
+class TimerModel(AbstractTimerModel):
     def __init__(self):
         self._timer = Timer()
         self._event_refresh_timer = None
