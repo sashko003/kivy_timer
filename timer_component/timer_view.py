@@ -58,6 +58,8 @@ class TimerComponent(BoxLayout):
         self._ti_interval.font_size = TimerComponent.DEFAULT_TEXTINPUT_FONT_SIZE
         self._ti_interval.multiline = False
         self._ti_interval.input_filter = 'int'
+        self._ti_interval.halign = 'center'
+        self._ti_interval.valign = 'center'
 
     def _build_start_button(self):
         """
