@@ -75,8 +75,7 @@ class TimerModel(AbstractTimerModel):
         :param handler: a method to update UI
         :return:
         """
-        self._event_refresh_timer = Clock.schedule_interval(handler, 0.1)
-        self._event_refresh_timer.cancel() # don't need to start it after initialization
+        self._event_refresh_timer = Clock.create_trigger(handler, 0.1, interval=True)
 
     @property
     def event_on_timeout(self):
@@ -89,8 +88,7 @@ class TimerModel(AbstractTimerModel):
         :param handler: a method for handling timeout
         :return:
         """
-        self._event_on_timeout = Clock.schedule_once(handler)
-        self._event_on_timeout.cancel()
+        self._event_on_timeout = Clock.create_trigger(handler, interval=False)
 
     @property
     def event_on_exception(self):
@@ -103,8 +101,7 @@ class TimerModel(AbstractTimerModel):
         :param handler: a method for handling exception
         :return:
         """
-        self._event_on_exception = Clock.schedule_once(handler)
-        self._event_on_exception.cancel()
+        self._event_on_exception = Clock.create_trigger(handler, interval=False)
 
     @property
     def min_limit(self):
