@@ -45,6 +45,7 @@ class Timer(AbstractTimer):
         while ongoing_time < interval and self._is_running:
             ongoing_time = time.perf_counter() - start_time
             self._remaining_time = interval - round(ongoing_time, 3)
+        self._is_running = False
 
     def stop(self):
         self._is_running = False
