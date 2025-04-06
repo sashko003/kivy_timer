@@ -8,12 +8,20 @@ class TimerModel:
         self._timer = Timer()
         self._event_refresh_timer = None
         self._event_on_timeout = None
+        self._event_on_exception = None
+        self._timer_exception = None
 
     def start_timer(self, interval):
-        self._event_refresh_timer()
-        self._timer.start(interval)
-        self._event_refresh_timer.cancel()
-        self._event_on_timeout()
+        try:
+            self._event_refresh_timer()
+            self._timer.start(interval)
+            self._event_on_timeout()
+        except Exception as e:
+            print(f"Exception occured: {e}")
+            self._timer_exception = f"Timer exception: {e}"
+            self._event_on_exception()
+        finally:
+            self._event_refresh_timer.cancel()
 
     @property
     def remaining_time(self):
@@ -38,9 +46,22 @@ class TimerModel:
         self._event_on_timeout.cancel()
 
     @property
+    def event_on_exception(self):
+        return self._event_on_exception
+
+    @event_on_exception.setter
+    def event_on_exception(self, handler):
+        self._event_on_exception = Clock.schedule_once(handler)
+        self._event_on_exception.cancel()
+
+    @property
     def min_limit(self):
         return self._timer.MIN_LIMIT
 
     @property
     def max_limit(self):
         return self._timer.MAX_LIMIT
+
+    @property
+    def timer_exception(self):
+        return self._timer_exception
