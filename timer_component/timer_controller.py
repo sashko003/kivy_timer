@@ -45,12 +45,12 @@ class TimerController(AbstractTimerController):
         self._ui.btn_start.bind(on_press=self.start_timer)
         self._ui.btn_start.bind(on_press=self.disable_button)
 
-    def start_timer(self, *args):
+    def start_timer(self, instance):
         """
         Checks set by user time interval.
         Calls timer execution using assigned instance of model.
         Updates UI accordingly.
-        :param args: instance of button what has been pressed.
+        :param instance: instance of button what has been pressed.
         :return:
         """
         LOG.debug("Timer started")
@@ -75,24 +75,24 @@ class TimerController(AbstractTimerController):
             self._ui.lbl_timer.text = f"Unexpected error: {ex}"
             self.enable_button()
 
-    def disable_button(self, *args):
+    def disable_button(self, instance):
         self._ui.btn_start.disabled = True
 
     def enable_button(self, *args):
         self._ui.btn_start.disabled = False
 
-    def update_remaining_time(self, *args):
+    def update_remaining_time(self, dt):
         """
         It is a callback what is used to update timer label.
-        :param args: time spent from the last call, designed by Kivy
+        :param dt: time spent from the last call, designed by Kivy
         :return:
         """
         self._ui.lbl_timer.text = f"{self._timer_model.remaining_time:.1f}"
 
-    def timeout_reached(self, *args):
+    def timeout_reached(self, dt):
         """
         It is a callback what is used to update UI when timeout is reached.
-        :param args: time spent from the last call, designed by Kivy
+        :param dt: time spent from the last call, designed by Kivy
         :return:
         """
         self._ui.lbl_timer.text = "Timeout"
@@ -109,10 +109,10 @@ class TimerController(AbstractTimerController):
         else:
             return True
 
-    def show_exception(self, *args):
+    def show_exception(self, dt):
         """
         It is a callback what is used to update UI in case of exception.
-        :param args: time spent from the last call, designed by Kivy
+        :param dt: time spent from the last call, designed by Kivy
         :return:
         """
         self._ui.lbl_timer.text = self._timer_model.timer_exception
