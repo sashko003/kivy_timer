@@ -56,7 +56,7 @@ class TimerController(AbstractTimerController):
 
     def update_remaining_time(self, *args):
         LOG.debug("update_remaining_time")
-        self._ui.lbl_timer.text = f"{self._timer_model.remaining_time:.2f}"
+        self._ui.lbl_timer.text = f"{self._timer_model.remaining_time:.1f}"
 
     def timeout_reached(self, *args):
         LOG.debug("update_remaining_time")
