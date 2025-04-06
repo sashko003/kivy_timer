@@ -2,6 +2,9 @@ from kivy.clock import Clock
 
 from .timer import Timer
 
+import logging
+LOG = logging.getLogger('common_logger')
+
 
 class TimerModel:
     def __init__(self):
@@ -12,15 +15,17 @@ class TimerModel:
         self._timer_exception = None
 
     def start_timer(self, interval):
+        LOG.debug("Starting timer with interval {}".format(interval))
         try:
             self._event_refresh_timer()
             self._timer.start(interval)
             self._event_on_timeout()
         except Exception as e:
-            print(f"Exception occured: {e}")
+            LOG.exception(f"Exception occured: {e}")
             self._timer_exception = f"Timer exception: {e}"
             self._event_on_exception()
         finally:
+            LOG.debug("Finished timer with interval {}".format(interval))
             self._event_refresh_timer.cancel()
 
     @property

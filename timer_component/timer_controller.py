@@ -2,9 +2,13 @@ from threading import Thread
 
 from timer_component.timer_view import TimerComponent
 
+import logging
+LOG = logging.getLogger('common_logger')
+
 
 class TimerController:
     def __init__(self, timer_model):
+        LOG.debug("Initializing timer controller")
         self._timer_model = timer_model
         self._timer_model.event_on_timeout = self.timeout_reached
         self._timer_model.event_refresh_timer = self.update_remaining_time
@@ -14,6 +18,7 @@ class TimerController:
         self._ui.build()
 
     def start_timer(self, *args):
+        LOG.debug("Timer started")
         try:
             interval = int(self._ui.ti_interval.text)
             if self.check_interval(interval):
@@ -22,16 +27,18 @@ class TimerController:
             else:
                 self._ui.lbl_timer.text = "Invalid interval"
         except ValueError as value_error:
+            LOG.exception(value_error)
             self._ui.lbl_timer.text = f"Invalid user input: {value_error}"
         except Exception as ex:
+            LOG.exception(ex)
             self._ui.lbl_timer.text = f"Unexpected error: {ex}"
 
     def update_remaining_time(self, *args):
-        print("update_remaining_time")
+        LOG.debug("update_remaining_time")
         self._ui.lbl_timer.text = f"{self._timer_model.remaining_time:.2f}"
 
     def timeout_reached(self, *args):
-        print("update_remaining_time")
+        LOG.debug("update_remaining_time")
         self._ui.lbl_timer.text = "Timeout"
 
     def check_interval(self, interval):

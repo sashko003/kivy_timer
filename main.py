@@ -3,6 +3,7 @@ from kivy.app import App
 
 from timer_component.timer_model import TimerModel
 from timer_component.timer_controller import TimerController
+from common.logger import LoggerCreator
 
 
 class MainApp(App):
@@ -17,4 +18,5 @@ class MainApp(App):
 
 
 if __name__ == '__main__':
+    LoggerCreator.setup_default_logger()
     MainApp().run()

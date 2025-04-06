@@ -1,6 +1,9 @@
 import time
 from abc import ABC, abstractmethod
 
+import logging
+LOG = logging.getLogger('common_logger')
+
 
 class AbstractTimer(ABC):
     def __init__(self, interval=0):
@@ -39,6 +42,7 @@ class Timer(AbstractTimer):
         self._is_running = False
 
     def start(self, interval):
+        LOG.debug("Timer starting")
         ongoing_time = 0
         start_time = time.perf_counter()
         self._is_running = True
@@ -46,6 +50,7 @@ class Timer(AbstractTimer):
             ongoing_time = time.perf_counter() - start_time
             self._remaining_time = interval - round(ongoing_time, 3)
         self._is_running = False
+        LOG.debug("Timer ended")
 
     def stop(self):
         self._is_running = False
