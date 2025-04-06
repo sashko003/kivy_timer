@@ -63,7 +63,9 @@ class TimerController(AbstractTimerController):
                 timer_thread.start()
             else:
                 # notify user about incorrect input
-                self._ui.lbl_timer.text = "Invalid interval"
+                self._ui.lbl_timer.text = (f"Invalid interval. Please use value from range "
+                                           f"[{self._timer_model.min_limit}:{self._timer_model.max_limit}]")
+                self.enable_button()
         except ValueError as value_error:
             LOG.exception(value_error)
             self._ui.lbl_timer.text = f"Invalid user input: {value_error}"
