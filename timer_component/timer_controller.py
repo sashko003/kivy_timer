@@ -26,9 +26,9 @@ class TimerController(AbstractTimerController):
         self._timer_model.event_refresh_timer = self.update_remaining_time
         self._timer_model.event_on_exception = self.show_exception
         self._ui = TimerComponent()
+        self._ui.build()
         self._ui.btn_start.bind(on_press=self.start_timer)
         self._ui.btn_start.bind(on_press=self.disable_button)
-        self._ui.build()
 
     def start_timer(self, *args):
         LOG.debug("Timer started")
