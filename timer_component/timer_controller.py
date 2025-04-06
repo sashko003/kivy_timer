@@ -1,4 +1,5 @@
 from threading import Thread
+from abc import ABC, abstractmethod
 
 from timer_component.timer_view import TimerComponent
 
@@ -6,7 +7,18 @@ import logging
 LOG = logging.getLogger('common_logger')
 
 
-class TimerController:
+class AbstractTimerController(ABC):
+    @abstractmethod
+    def start_timer(self, *args):
+        pass
+
+    @property
+    @abstractmethod
+    def ui(self):
+        pass
+
+
+class TimerController(AbstractTimerController):
     def __init__(self, timer_model):
         LOG.debug("Initializing timer controller")
         self._timer_model = timer_model
