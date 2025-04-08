@@ -21,6 +21,7 @@ Basic timer using Kivy for GUI
 # Instruction
 1) to setup environment run setup_env.bat - it will create virtual environment and install needed packages
 2) to create executable (.exe) run make_build.bat
+
 Note: it is expected that batch files will be run from setup_project folder
 
 
