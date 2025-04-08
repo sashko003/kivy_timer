@@ -37,7 +37,7 @@ class TimerComponent(BoxLayout):
     def build(self):
         """
         Creates all parts of TimerComponent
-        :return:
+        :return: reference to self instance (configured TimerComponent)
         """
         LOG.debug("Building TimerComponent")
         self._build_component_title()
@@ -48,6 +48,7 @@ class TimerComponent(BoxLayout):
         self.add_widget(self._ti_interval)
         self.add_widget(self._lbl_timer)
         self.add_widget(self._btn_start)
+        return self
 
     def _build_textinput(self):
         """

@@ -16,3 +16,15 @@ Basic timer using Kivy for GUI
 ⚙️ Вимоги:
 ✅ Використовувати VerticalBoxLayout.
 ✅ Без використання kv-розмітки – вся логіка в коді Python.
+
+
+# Instruction
+1) to setup environment run setup_env.bat - it will create virtual environment and install needed packages
+2) to create executable (.exe) run make_build.bat
+Note: it is expected that batch files will be run from setup_project folder
+
+
+# Some moments to improve (not complete list)
+1) move some constants like range for time interval to configuration file
+2) move used strings to separate module, for example 'resources'
+3) UI improvements: use better styles, make components more scalable
