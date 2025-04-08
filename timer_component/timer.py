@@ -45,7 +45,7 @@ class AbstractTimer(ABC):
 
 class Timer(AbstractTimer):
     """
-    Simple implementation of timer.
+    Implementation of timer.
     """
     MIN_LIMIT = 0
     MAX_LIMIT = 300
@@ -61,11 +61,11 @@ class Timer(AbstractTimer):
 
     def start(self, interval):
         """
-        Starts counting
+        Starts counting based on perf_counter timer
         :param interval: time in seconds to count down
         :return:
         """
-        LOG.debug("Timer starting")
+        LOG.debug(f"{type(self).__name__} starting")
         ongoing_time = 0
         self._interval = interval
         start_time = time.perf_counter()
@@ -75,7 +75,7 @@ class Timer(AbstractTimer):
             self._remaining_time = self._interval - ongoing_time
             time.sleep(self._accuracy)
         self._is_running = False
-        LOG.debug("Timer ended")
+        LOG.debug(f"{type(self).__name__} ended")
 
     def stop(self):
         self._is_running = False

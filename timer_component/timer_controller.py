@@ -53,7 +53,7 @@ class TimerController(AbstractTimerController):
         :param instance: instance of button what has been pressed.
         :return:
         """
-        LOG.debug("Timer started")
+        LOG.debug(f"{type(self).__name__} Starting timer")
         try:
             # get time interval set by user
             interval = int(self._ui.ti_interval.text)
