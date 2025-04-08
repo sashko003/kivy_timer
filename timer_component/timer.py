@@ -32,6 +32,16 @@ class AbstractTimer(ABC):
     def remaining_time(self):
         pass
 
+    @property
+    @abstractmethod
+    def accuracy(self):
+        pass
+
+    @accuracy.setter
+    @abstractmethod
+    def accuracy(self, value):
+        pass
+
 
 class Timer(AbstractTimer):
     """
@@ -39,10 +49,14 @@ class Timer(AbstractTimer):
     """
     MIN_LIMIT = 0
     MAX_LIMIT = 300
+    MAX_ACCURACY = 0.001
+    MIN_ACCURACY = 1
+    DEFAULT_ACCURACY = 0.05
 
     def __init__(self):
         self._interval = 0
         self._remaining_time = 0
+        self._accuracy = Timer.DEFAULT_ACCURACY
         self._is_running = False
 
     def start(self, interval):
@@ -59,7 +73,7 @@ class Timer(AbstractTimer):
         while ongoing_time < self._interval and self._is_running:
             ongoing_time = time.perf_counter() - start_time
             self._remaining_time = self._interval - ongoing_time
-            time.sleep(0.05)
+            time.sleep(self._accuracy)
         self._is_running = False
         LOG.debug("Timer ended")
 
@@ -77,3 +91,11 @@ class Timer(AbstractTimer):
     @property
     def remaining_time(self):
         return self._remaining_time
+
+    @property
+    def accuracy(self):
+        return self._accuracy
+
+    @accuracy.setter
+    def accuracy(self, value):
+        self._accuracy = max(min(value, Timer.MIN_ACCURACY), Timer.MAX_ACCURACY)
